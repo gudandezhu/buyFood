@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>登录注册</title>
+			<script type="text/javascript" src="static/jquery-3.3.1.js"></script>
+			<script type="text/javascript" src="static/jquery.easyui.min.js"></script>
+			<script type="text/javascript" src="static/easyui-lang-zh_CN.js"></script>
+			<script type="text/javascript" src="index.js"></script>
+			<link type="text/css" rel="stylesheet" href="static/easyui.css"/>
+			<link type="text/css" rel="stylesheet" href="static/icon.css"  />
+			<link type="text/css" rel="stylesheet" href="static/demo.css"  />
+			<link type="text/css" rel="stylesheet" href="static/menusystem.css"  />
+</head>
+<body>
+	<div id="win">
+		<div data-options="region:'center',title:'login',fit:true" style="padding:5px;text-align:center;line-height: 40px;">
+			<h2 class='h2' style="text-align: center;">用户登录</h2>
+			<p><input class="easyui-textbox" id="name"     type="text"     style="width:300px;height: 30px;" data-options="iconCls:'icon-man',label:'用户名：',required:true,prompt:'请输入用户名'"></p>	
+			<p><input class="easyui-textbox" id="password" type="password" style="width:300px;height: 30px;" data-options="iconCls:'icon-lock',label:'密码：',required:true,prompt:'请输入密码'"></p>	
+		</div>
+		<div data-options="region:'south',border:false" style="text-align:center;padding:5px 0 0;margin:50px">
+			<span class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="width:100px;border-radius: 20px;" id="login">登录</span>
+			<span class="easyui-linkbutton" data-options="iconCls:'icon-cancel'"  style="width:100px;border-radius: 20px;"  id="register">注册</span>
+		</div>
+	</div>
+</body>
+</html>

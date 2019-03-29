@@ -1,0 +1,30 @@
+<link rel="stylesheet" type="text/css" href="menu.css"/>
+		<div style="overflow:auto;">
+			<fieldset>
+				<legend style="text-align: center">菜单列表</legend>
+				<div id="menus"></div>
+			</fieldset>
+		</div>
+		<div id="backgroundimage3">
+			<img src="static/3.jpg"/>
+		</div>
+		<div id="updateMenu" style="display: none;">
+		
+			<div style="width: 100%;height: 100%;background: #ccc;position: absolute;left: 0px;top: 0px;opacity: 0.5;z-index: 1000;"></div>
+			
+			<div style="border: 1px solid blue;width: 400px;height: 300px;position: absolute;left: calc(50% - 200px);top:calc(50% - 250px);
+			z-index: 1100;background: white;padding: 10px;border-radius: 10px; ">
+				<div style="border-bottom: 1px solid blue;padding-bottom: 10px;">修改菜单</div>
+				<input type="hidden" id="menuId">
+				<p>名称：<input id="name">
+				<p>价格：<input id="money">
+				<p>优惠价格：<input id="preferentialPrice">
+				<p>是否置顶：<input type="radio" value="Y" name="isTop">是 <input type="radio" value="N" name="isTop">否
+				<p>状态：<select id="state">
+							<option value="1">上架</option>
+							<option value="2">下架</option>
+							<option value="3">删除</option>
+						</select>
+				<p class="fr"><span class="span-btn mr10" id="updateSubmit">修改</span><span class="span-btn" id="cancleBtn">取消</span>
+			</div>
+		</div>

@@ -1,0 +1,49 @@
+.t-a-c{
+	text-align: center;
+	
+}
+.t-a-r{
+	text-align: right;
+	margin-right: 15px;
+}
+.f-l{
+	float: left;
+	margin-left: 15px;
+	margin-top:20px;
+}
+.f-s-30{
+	font-size: 30px;
+}
+.c-w{
+	color:white;
+}
+a.c-w:hover{color: #FF0000;}
+.c-b{
+	color:royalblue;
+}
+a.c-b:hover{color: #FF0000;}
+.text-d{
+	text-decoration:none;
+}
+.m-l-10{
+	margin-left: 10px;
+}
+.systemest{
+	font-size: 15px;
+	width: 150px;
+	height: 30px;
+	padding-top: 5px;
+}
+.systemest:hover{
+	background: #FFE48D;
+	cursor: pointer;
+}
+.datagridlinkbutton{
+	height:30px;width:120px;border-radius: 15px;
+}
+.fpdiv{
+	width:300px;
+	height: 300px;
+	margin-left: 20%;
+	margin-top: 40px;
+}

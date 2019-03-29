@@ -1,0 +1,31 @@
+	<script type="text/javascript" src="order.js"></script>
+	<link type="text/css" rel="stylesheet" href="static/easyui.css"/>
+	<link type="text/css" rel="stylesheet" href="static/icon.css"  />
+	<link type="text/css" rel="stylesheet" href="static/demo.css"  />
+	<link rel="stylesheet" type="text/css" href="order.css"/>
+	<div style="margin: 20px 10px;">
+		状态：
+		<input type="radio" value="0" name="state" checked="checked">全部
+		<input type="radio" value="1" name="state">待接单
+		<input type="radio" value="2" name="state">待生产
+		<input type="radio" value="3" name="state">待收货
+		<input type="radio" value="4" name="state">完成
+		<input type="radio" value="5" name="state">已取消
+		<span class="span-btn ml30" id="searchBtn">搜索</span>
+	</div>
+	<div class="order-list" id="orderList">
+				
+	</div>
+
+	<div id="cancelOrderDiv" style="display: none;">
+		<div style="width: 100%;height: 100%;background: #ccc;position: absolute;left: 0px;top: 0px;opacity: 0.5;z-index: 1000;"></div>
+		<div style="border: 1px solid blue;width: 400px;height: 300px;position: absolute;left: calc(50% - 200px);top:calc(50% - 250px);z-index: 1100;background: white;padding: 10px;border-radius: 10px; ">
+			<div style="border-bottom: 1px solid blue;padding-bottom: 10px;">取消订单</div>
+			<form id = "cancelOrderSubmit">
+				<input type="hidden" id="orderId">
+				<p>取消原因：<input id="cancelReason" name="cancelReason">
+				
+				<p class="fr"><span class="span-btn mr10" id="submitCansel" >提交</span><span class="span-btn" id="cancleBtn">取消</span>
+			</form>
+		</div>
+	</div>

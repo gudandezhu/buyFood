@@ -1,0 +1,46 @@
+		<style type="text/css">
+			ul li{
+				margin-top:20px;
+				
+			}
+		</style>
+		<meta charset="utf-8">
+		<div  class="easyui-layout" id="bodyrecharge"  data-options="fit:true">
+			<div data-options="region:'center',border:false" style="padding:5px;background:url(static/动图2.gif);height:80%;">
+				<ul style="list-style: none;float:left;margin-top: 5%;margin-left: 20%;">
+					<li><a onclick="rechargesubmit(300)" href="javascript:void(0)" class="easyui-linkbutton c5" data-options="width:100">300</a>  </li>
+					<li><a onclick="rechargesubmit(800)" href="javascript:void(0)" class="easyui-linkbutton c5" data-options="width:100">800</a>  </li>
+					<li><a onclick="rechargesubmit(2000)" href="javascript:void(0)" class="easyui-linkbutton c5" data-options="width:100">2000</a>  </li>
+				</ul>
+				<ul style="list-style: none;float:left;margin-top: 5%;">
+					<li><a onclick="rechargesubmit(500)" href="javascript:void(0)" class="easyui-linkbutton c7" data-options="width:100">500</a>  </li>
+					<li><a onclick="rechargesubmit(1000)" href="javascript:void(0)" class="easyui-linkbutton c8" data-options="width:100">1000</a>  </li>
+					<li><a onclick="rechargesubmit(5000)" href="javascript:void(0)" class="easyui-linkbutton c3" data-options="width:100">5000</a>  </li>
+				</ul>
+			 </div>
+			<div  data-options="region:'south',split:true,collapsible:false" style="height:20%;text-align: center;">
+				<a onclick="cancelrecharge()" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" style="margin-top:3%;width:100px;border-radius: 20px;">取消</a> 
+			</div>
+		</div>	
+<script type="text/javascript">
+	function rechargesubmit(money){
+		var userId = location.href.split("?")[1].split("&")[1].split("=")[1];
+		$.ajax({
+			type:'get',
+			url:'UserRecharge?money='+money+"&id="+userId,
+			async:true,
+			dataType:'text',
+			success:function(msg){
+				$.messager.alert("提示","充值成功 "+money+"元！")
+				cancelrecharge();
+			}
+		})
+	}
+	function cancelrecharge(){
+		$('#rechargeWin').window('destroy');
+	}
+	
+	
+	
+	
+</script>

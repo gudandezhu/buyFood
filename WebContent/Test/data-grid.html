@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<script type="text/javascript" src="../static/jquery-3.3.1.js"></script>
+	<script type="text/javascript" src="../static/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../static/easyui-lang-zh_CN.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="../static/icon.css"/>
+	<link type="text/css" href="../static/easyui.css" rel="stylesheet" >
+	<link type="text/css" href="../static/data-grid.css" rel="stylesheet" >
+</head>
+<body>
+		<p><input type="text" id="searchInput" /><button id="searchBtn">搜索</button></p>
+		<div><button id="loadMsg">加载数据</button></div>
+		<table id="dg"></table>
+		<table id="ag"></table>
+		<div id="dgDetail">
+		
+		</div>
+		
+		<!-- <div id="dd">Dialog Content.</div>   -->
+</body>
+<script type="text/javascript">
+    var isMoreRowsSort = false; 
+	$("#searchInput").keyup(function(){
+		$("#searchBtn").click(); 
+	})
+	
+	$("#searchBtn").click(function(){
+		var search = $("#searchInput").val();
+		
+		$('#dg').datagrid({
+			queryParams: {
+				name: search
+			}
+		});
+	});
+	
+	//设置全局loadMsg  加载提示信息
+	$.fn.datagrid.defaults.loadMsg = 'sss';
+	$("#dg").datagrid({
+		autoRowHeight:false,    //定义设置行的高度，根据该行的内容。
+		striped:true,		    //是否显示斑马线效果。
+		pagination:true,	    //如果为true，则在DataGrid控件底部显示分页工具栏。
+		resizeHandle:"both",    //调整列的位置，可用的值有：'left','right','both'。在使用'right'的时候用户可以通过拖动右侧边缘的列标题调整列
+		//loadMsg:"加载中···",     //在从远程站点加载数据的时候显示提示消息。
+		showHeader:true,       //定义是否显示行头(第一行)
+		rownumbers:true,       //如果为true，则显示一个行号列。
+		title:"菜品列表",  	   //标题
+		width:900,			   //
+		height:400,  		   //
+		pageList:[5,10,15,20], //多少个分一页
+		pageSize:5,			   //分页下拉框默认选择
+		pageNumber:1,          //分页时候默认显示的页数
+		method:"get",
+		url:"/MyShopping/DatagridQuery",
+		idField:"name",
+		//单选
+		//singleSelect:true,
+		//ctrl键复选
+		//ctrlSelect:true,
+		//列排序(定义哪些列 可以 进行排序。    与sortable不同。 sortable列属性表示此列排序)
+		//sortName:"putaway_time",
+		frozenColumns:[
+			[
+				{title:"菜名",field:"name",width:100,halign:"center",align:"center"},
+				{title:"勾选",field:"check",width:100,halign:"center",align:"center",checkbox:true},
+				{title:"操作",field:"del",width:140,formatter:function(value,row,index){
+					return "<a href='javascript:void(0)' onclick='deleteE("+row.id+","+index+")'>删除</a> "+
+					"<a href='javascript:void(0)' onclick='updateMenu("+index+")'>修改</a> "+
+					"<a href='javascript:void(0)' onclick='saveMenu("+index+")'>保存</a> "+
+					"<a href='javascript:void(0)' onclick='cancelMenu("+index+")'>取消</a>"
+				}}
+			]
+		],
+		columns:[
+			
+			[
+				//{title:"",field:"",checkbox:true},
+				{title:"状态",field:"state",width:100,align:"center",formatter:function(value,row,index){
+					if(value==1){
+						return "<span>上架</span>";
+					}else if(value==2){
+						return "<span>下架</span>";
+					}else if(value==3){
+						return "<span>删除</span>";
+					}
+				},styler:function(value,row,index){
+					if(row.state==2){
+						return "background-color:yellow;color:red";
+					}else if(row.state==3){
+						return "color:red";
+					}
+				}},    
+				//editor    可以是如下属性
+						//                text,textarea,checkbox,numberbox,validatebox,datebox,combobox,combotree。
+				{title:"价格",field:"price",width:100,halign:"center",align:"center"},
+				{title:"优惠金额",field:"money",width:100,halign:"center",align:"center",editor:"text",sortable:true},
+				{title:"创建时间",field:"putaway_time",width:250,halign:"center",align:"center",hidden:false,sortable:true,editor:"datetimebox"},
+				{title:"是否置顶",field:"is_top",width:100,halign:"center",align:"center",formatter:function(value,row,index){
+					//row  行数据对象，value ，当前列的值，index行索引
+					if(value=="Y"){
+						return "<b style='color:red'>是</b>"
+					}else{
+						return "<b>否</b>"
+					}
+				}}
+			]
+		],
+		//工具栏
+		toolbar: [{
+	        iconCls: 'icon-myedit',
+	        text:'修改',
+	        handler: function(){
+	            var rowJson=$('#dg').datagrid('getSelected');//获取选中行的json对象
+	            alert(JSON.stringify(rowJson));
+	        }
+	    },'-',{
+	        iconCls: 'icon-help',
+	        handler: function(){
+				
+	        }
+	    },'-',{
+	    	iconCls:'more-rows',
+	    	text:'多行排序',
+	    	handler:function(){
+	    		if(!isMoreRowsSort){
+	    			//点击多行排序，传递多行排序参数，服务器继续判断
+		    		if(!confirm("确认启动多行排序?")){
+						return;
+					}
+		    		isMoreRowsSort = true;
+		    		$('#dg').datagrid({
+		    			queryParams: {
+		    				moreRows: "启动"
+		    			}
+		    		});
+	    		}else{
+	    			if(!confirm("是否关闭多行排序?")){
+						return;
+					}
+	    			isMoreRowsSort = false;
+	    			$('#dg').datagrid({
+		    			queryParams: {
+		    				moreRows: "关闭"
+		    			}
+		    		});
+	    		}
+	    	}
+	    }],
+	    //加载成功时触发
+	    onLoadSuccess:function(data){
+	    	//console.log(data);  //data有rows和total
+	    },
+		//在请求数据前触发，return false可取消请求
+		onBeforeLoad:function(param){
+			if(param.page==2){  //不加载第二页
+				//return false;
+			}
+			//console.log(param);   //参数是前台往后台传递的参数，分页则是page  rows
+		},
+		//单击一行 触发   index：点击的行的索引值，该索引值从0开始。row：对应于点击行的记录。
+		onClickRow:function(index,row){
+			//console.log(row);
+		},
+		//双击一行  触发  (会先出发两次单机，再触发此双击事件)
+		onDblClickRow:function(index,row){
+			//console.log(row);
+		},
+		//单机一个单元格    行下标   字段:如“price”   单元格内字段的值（非渲染前）
+		onClickCell:function(index,field,value){
+			//console.log(value);
+		},
+		//双击单元格
+		onDblClickCell:function(index,field,value){
+			//console.log(value);
+		},
+		//对某列排序前 触发，return false可以取消排序
+		/* onBeforeSortColumn:function(sort,order){
+			return false;
+		}, */
+		//排序时触发,url发送后，前台接收到数据前
+		onSortColumn:function(sort,order){
+			//debugger;
+		},
+		//选择一行前  触发，逻辑判断，return false取消选择当前行
+		//onBeforeSelect:function(index,row){return false;}
+		
+		//选择一行时触发
+		onSelect:function(index,row){
+			//console.log(row);
+		},
+		//在用户取消选择一行之前触发，返回false则取消该动作(让其无法取消)。
+		//onBeforeUnselect:function(index, row){return false;}
+		
+		//取消一行后出发
+		onUnselect:function(index,row){//console.log(row);
+		},
+		
+		//选中全部行触发，两者区别  注:   列属性需要拥有checkbox:true才能触发此事件；
+					//   一般用 onSelectAll 
+		onSelectAll:function(rows){console.log("onSelectAll")},
+		onCheckAll:function(rows){console.log("onCheckAll")},
+		
+		//勾选一行，被选中之前触发
+		onBeforeCheck:function(index,row){
+			/* if(row.state==2){ //让无法勾选下架产品
+				return false;
+			} */
+		},
+		
+		//编辑事件   
+					//编辑前  触发(还未让单元格变成可编辑状态前)  return false退出编辑状态;
+		onBeforeEdit:function(index,row){
+			if(row.state==2){//下架产品无法编辑
+				return false;
+			}
+		},
+					//编辑中途    单元格显示可编辑状态
+		onBeginEdit:function(index,row){
+			//return false;   无效
+			//校验，手动取消
+			if(row.state==2){   //下架产品无法编辑
+				$("#dg").datagrid('cancelEdit',index);
+			}
+		},
+					//编辑后，保存前    在完成编辑但编辑器还没有销毁之前触发。
+		onEndEdit:function(index,row,changes){
+			//点击保存后运行的事件,做changes的验证判断 ，如 changes<0    return false
+			if(changes<0){
+				//return false  无效;      //自写逻辑代码，恢复之前的状态
+			}
+		},
+				   //编辑完成并保存后
+		onAfterEdit:function(index,row,changes){},
+					//编辑被取消后
+		onCancelEdit:function(index,row){},
+		
+		/*
+		*  鼠标右击    
+		*/         //在鼠标右击DataGrid表格头的时候触发。
+		onHeaderContextMenu:function(e, field){},
+				   //在鼠标右击一行记录的时候触发。
+		onRowContextMenu:function(e, index, row){}
+	}) 
+	
+	//data-grid 方法
+//  var obj = $("#dg").datagrid("options");
+///	var obj = $("#dg").datagrid("getPager").pagination("select","2");   //页面从第二页开始
+	
+//	var obj = $("#dg").datagrid("getColumnFields",true);    			//true返回被冻结列   false非冻结列
+//	var obj = $("#dg").datagrid("getColumnOption","name");  			//返回name列的属性
+//	var obj = $("#dg").datagrid("load",{name:"猪"});   					//加载和显示第一页所有行（只是第一页）
+																				//如果添加了参数，则会传递参数内值，如果想要添加参数后再次访问不添加参数的 ，则参数应该是{};
+//		  	  $("#dg").datagrid("reload");								//重新加载当前页数的页面
+//		$("#dg").datagrid("loading");    $("#dg").datagrid("loaded");   //显示加载图标，和结束加载图标，与 loadData 搭配使用
+		
+//	$("#dg").datagrid("freezeRow",2);                                   //冻结第三行（index=2）
+
+	/* $("#loadMsg").click(function(){
+		$.ajax({
+			url:"/MyShopping/DatagridQuery?page=1&rows=5",
+			type:"GET",
+			dataType:"json",
+			success:function(req){
+				$("#dg").datagrid("loadData",req.rows);                 //手动加载数据
+			}
+		})
+	}); */
+		
+//	 $("#dg").datagrid("getData");										//返回加载完毕后的数据。
+//   $("#dg").datagrid("getRows");										//返回当前页的所有行。
+//	 $("#dg").datagrid("getRowIndex","红烧肉");							//返回指定行的索引号，该行的参数可以是一行记录或一个ID字段值。
+//	 $("#dg").datagrid("getChecked");								    //返回所有被选中的复选框
+//	 $("#dg").datagrid("getSelected");								    //返回第一个被选中的行或如果没有选中的行则返回null。
+//   $("#dg").datagrid("clearSelections");								//清除所有选择的行。 
+//   $("#dg").datagrid("clearChecked");									//清除所有勾选的行。（该方法自1.3.2版开始可用）  
+//   $("#dg").datagrid("gotoPage",3);									//跳到第三页
+// 	 $("#dg").datagrid("selectAll");									//勾选所有行    checkAll相似，但是checkAll需要复选框点击选中
+// 	 $("#dg").datagrid("unselectAll");									//取消勾选所有行
+// 		selectRow 和  checkRow      index      选择一行，行索引从0开始。 
+//		selectRecord              idValue    通过ID值参数选择一行。 
+//		unselectRow 和  uncheckRow  index      取消选择一行。 
+
+// 	 $("#dg").datagrid("getEditors",3);									 //获取第四行的编辑器
+// 	 $("#dg").datagrid("");									                //
+// 	 $("#dg").datagrid("");									                //
+// 	 $("#dg").datagrid("");									                //
+// 	 $("#dg").datagrid("");									                //
+// 	 $("#dg").datagrid("");									                //
+// 	 $("#dg").datagrid("");									                //
+// 	 $("#dg").datagrid("");									                //
+// 	 $("#dg").datagrid("");									                //
+/*	 $("#dg").datagrid("updateRow",{										//修改指定行，row表示要修改的参数，如果含有不存在的参数，则会自动追加到行中
+	 	index:1,
+	 	row:{price:40}
+	 })*/
+	
+/*	$("#dg").datagrid("appendRow",{										//追加指定行
+	 	name:"新菜",
+	 	price:"10"
+	 })
+	
+	$("#dg").datagrid("insertRow",{
+		index:0,                                                     //追加指定行,index表示要添加到哪个行，0是第一行，row表示新行的参数
+	 	row:{
+	 		name:"新菜",
+	 		price:"10"
+	 	}
+	 })
+	
+	$("#dg").datagrid("deleteRow",0);								//删除第0行
+	$("#dg").datagrid("getChanges");								//从上一次的提交获取改变的所有行。类型参数指明用哪些类型改变的行，
+//	                  $("#dg").datagrid("getChanges","inserted");         可以使用的值有：inserted,deleted,updated等。当类型参数未配置的时候返回所有改变的行。
+	$("#dg").datagrid("acceptChanges");								//提交所有从加载或者上一次调用acceptChanges函数后更改的数据。运行后运用getChanges方法得到空数组
+	$("#dg").datagrid("rejectChanges");								//回滚所有从创建或者上一次调用acceptChanges函数后更改的数据。
+	
+	$("#dg").datagrid("mergeCells",{
+		index:0,
+		field:"name",
+		rowspan:2,
+		colspan:1
+	});*/
+	
+	
+	
+	
+	
+	
+	
+	/*
+		表格下面的详情，点击一行记录，出现详情
+	*/
+		
+	$("#dg").datagrid({
+			onSelect:function(index,row){
+				var codes = getCodesByRow(row);
+				$("#dgDetail").html(codes);
+			}
+	});
+	
+	function getCodesByRow(row){
+		var codes = [];
+		var str = "";
+		if(row.state==1){
+			str="上架";
+		}else if(row.state==2){
+			str="下架";
+		}else if(row.state==3){
+			str="删除";
+		}
+		codes.push("<p>菜品名字： <span>"+row.name+"</span></p>");
+		codes.push("<p>状态： <span>"+str+"</span></p>");
+		codes.push("<p>价格： <span>"+row.price+"</span></p>");
+		codes.push("<p>销量： <span>"+row.volume+"</span></p>");
+		return codes.join("");
+	}
+	
+	/*
+	*   3.点击单元格时
+		*     点击名称时，查询包含跟所点菜名第一个字符的菜的信息
+		*     点击价格时，查询跟所点价格一致的菜的信息
+	*/	
+	$("#dg").datagrid({
+		onClickCell:function(rowIndex,field,value){    //点击单元格触发事件
+			if(field=="name"){
+				var search = value.substr(0,1);
+				$('#dg').datagrid({
+					queryParams: {
+						name: search
+					}
+				});
+			}
+			if(field=="price"){
+				$('#dg').datagrid({
+					queryParams: {
+						price: value
+					}
+				});
+			}
+		}
+	})
+	
+	
+	
+	
+	
+/* 	setInterval(function(){
+		$("#ag").datagrid({
+			title:"订单列表", 
+			pagination:true,	    //如果为true，则在DataGrid控件底部显示分页工具栏。
+			//pageList:[5,10,15,20], //多少个分一页
+			//pageSize:5,			   //分页下拉框默认选择
+			striped:true,		    //是否显示斑马线效果。
+			rownumbers:true,       //如果为true，则显示一个行号列。
+			//ctrl键复选
+			ctrlSelect:true, 
+			url:"/MyShopping/DatagridQueryOrder",
+			frozenColumns:[
+				[
+					{title:"订单号",field:"id",align:"center"},
+					{title:"操作",field:"update",align:"center",formatter:function(value,row,index){
+						return "<a href='jacascript:void(0)' onclick='updateOrder("+index+")'>修改</a> "
+						+"<a href='jacascript:void(0)' onclick='saveOrder("+index+")'>保存</a> "
+					}}
+				]
+			],
+			
+			columns:[
+				[
+					{title:"订单用户",field:"userName",align:"center"},
+					{title:"收货地址",field:"address",align:"center"},
+					{title:"总金额",field:"totalMoney",align:"center"},
+					{title:"状态",field:"state",align:"center",formatter:function(value,row,index){
+						if(row.state==1){
+							return "<b>待接单</b>"
+						}else if(row.state==2){
+							return "<b>待生产</b>"
+						}else if(row.state==3){
+							return "<b>待收货</b>"
+						}else if(row.state==4){
+							return "<b>完成</b>"
+						}else if(row.state==5){
+							return "<b>已取消</b>"
+						}
+					},styler:function(value,row,index){
+						if(row.state==1){
+							return "background-color:#ffee00"
+						}
+					}},
+					{title:"下单时间",field:"create_time",align:"center",editor:"datebox"},
+					{title:"备注",field:"remark",align:"center",formatter:function(value,row,index){
+						var now = new Date();
+						var createTime = new Date(row.create_time.split(".")[0]);
+						//setInterval(function(){
+							if((now-createTime)/(1000*3600)>2 && row.state==1){
+								return "<b>尽快处理此单<b>"
+							}
+						//},1000);
+						
+					},editor:"text"}
+				]
+			]
+		})	
+	},5000); */
+	
+ /*   $("#ag").datagrid({
+		title:"订单列表", 
+		
+		pagination:true,	    //如果为true，则在DataGrid控件底部显示分页工具栏。
+		pageList:[5,10,15,20], //多少个分一页
+		pageSize:5,			   //分页下拉框默认选择
+		pageNumber:1,          //分页时候默认显示的页数
+		
+		striped:true,		    //是否显示斑马线效果。
+		rownumbers:true,       //如果为true，则显示一个行号列。
+		//ctrl键复选
+		ctrlSelect:true, 
+		//列排序(定义哪些列 可以 进行排序,设置此属性后会向后台发送Sort:totalMoney  order:asc。    与sortable不同。 sortable列属性表示此列排序)
+		//sortName:"totalMoney",
+		url:"/MyShopping/DatagridQueryOrder",
+		frozenColumns:[
+			[
+				{title:"订单号",field:"id",align:"center"},
+				{title:"操作",field:"update",align:"center",formatter:function(value,row,index){
+					return "<a href='jacascript:void(0)' onclick='updateOrder("+index+")'>修改</a> "
+					+"<a href='jacascript:void(0)' onclick='saveOrder("+index+")'>保存</a> "
+				}}
+			]
+		],
+		
+		columns:[
+			[
+				{title:"订单用户",field:"userName",align:"center"},
+				{title:"收货地址",field:"address",align:"center"},
+				{title:"总金额",field:"totalMoney",align:"center",sortable:true},
+				{title:"状态",field:"state",align:"center",formatter:function(value,row,index){
+					if(row.state==1){
+						return "<b>待接单</b>"
+					}else if(row.state==2){
+						return "<b>待生产</b>"
+					}else if(row.state==3){
+						return "<b>待收货</b>"
+					}else if(row.state==4){
+						return "<b>完成</b>"
+					}else if(row.state==5){
+						return "<span style='color:#ccc'>已取消</span>"
+					}
+				},styler:function(value,row,index){
+					if(row.state==1){
+						return "background-color:#ffee00"
+					}
+				}},
+				//editor：字符串，该编辑类型可以使用的类型有：text,textarea,checkbox,numberbox,validatebox,datebox,combobox,combotree。
+				{title:"下单时间",field:"create_time",align:"center",editor:"datetimebox"},
+				{title:"备注",field:"remark",align:"center",editor:"text"}
+			]
+		]
+		
+	}) */
+/*	$('#dd').dialog({    
+	    title: 'My Dialog',    
+	    width: 400,    
+	    height: 200,    
+	    closed: false,    
+	    cache: false,    
+	    href: 'http://192.168.3.45:4300/EasyTest/Test.html',    
+	    modal: true   
+	});    
+	$('#dd').dialog('refresh', 'http://192.168.3.45:4300/EasyTest/Test.html');  */
+
+	
+	
+	
+	function updateMenu(index){
+		$("#dg").datagrid('beginEdit',index);
+	}
+	function updateOrder(index){
+		$("#ag").datagrid("beginEdit",index)
+	}
+	function saveMenu(index){
+		$("#dg").datagrid('endEdit',index);
+	}
+	function cancelMenu(index){
+		$("#dg").datagrid('cancelEdit',index);
+	}
+	function saveOrder(index){
+		$("#ag").datagrid("endEdit",index)
+	}
+	
+	function deleteE(id,index){
+		alert(id+":"+index);
+	}
+</script>
+</html>

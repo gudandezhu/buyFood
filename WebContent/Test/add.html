@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>增加菜品</title>
+	</head>
+	<body>
+		<p>名称：<input id="addname" name="addname" autocomplete="off"  class="easyui-validatebox" data-options="required:true" >
+		<p>价格：<input id="addprice" name="addprice" autocomplete="off"  class="easyui-validatebox" data-options="required:true" >
+		<p>折扣：<input id="addmoney" name="addmoney" autocomplete="off"  class="easyui-validatebox" data-options="required:true" >
+		<p>是否置顶：<input type="radio" value="Y" name="addis_top" checked="checked">是 <input type="radio" value="N" name="addis_top">否
+		<p>状态：<select id="addstate">
+					<option value="1">上架</option>
+					<option value="2">下架</option>
+					<option value="3">删除</option>
+				</select>
+		<p class="fr">
+			<span class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="width:80px;border-radius: 20px;"  id="submitAddMenu" >提交</span>
+			<span class="easyui-linkbutton" data-options="iconCls:'icon-cancel'"  style="width:80px;border-radius: 20px;"  id="cancleBtn">取消</span>
+	</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>修改菜品</title>
+		<link rel="stylesheet" type="text/css" href="../static/easyui.css">
+		<link rel="stylesheet" type="text/css" href="../static/icon.css">
+		<link rel="stylesheet" type="text/css" href="../static/demo.css">
+	</head>
+	<body>
+		<div class="easyui-layout" data-options="fit:true">
+			<div>修改菜品</div>
+			<div data-options="region:'east',split:true" style="width:100px"></div>
+			<div data-options="region:'center'" style="padding:10px;">
+				<p>名称：<input id="name" class="easyui-validatebox" data-options="required:true,validateOnBlur:true,validateOnCreate:false">
+				<p>价格：<input id="price" class="easyui-validatebox" data-options="required:true,validateOnBlur:true,validateOnCreate:false">
+				<p>优惠价格：<input id="money" class="easyui-validatebox" data-options="required:true,validateOnBlur:true,validateOnCreate:false">
+				<p>是否置顶：<input type="radio" value="Y" name="isTop">是 <input type="radio" value="N" name="isTop">否
+				<p>状态：<select id="state">
+							<option value="1">上架</option>
+							<option value="2">下架</option>
+							<option value="3">删除</option>
+						</select>
+			</div>
+			<div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;height:65px">
+				<span class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="width:100px;border-radius: 20px;" id="updateSubmit">修改</span>
+				<span class="easyui-linkbutton" data-options="iconCls:'icon-cancel'"  style="width:100px;border-radius: 20px;"  id="cancleUpdateBtn">取消</span>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,62 @@
+<div class="easyui-layout" data-options="fit:true">
+	<div>修改菜品</div>
+	<div data-options="region:'center'" style="padding:10px;">
+		<p><input id="name" class="easyui-textbox"  style="width: 400px;" data-options="label:'名称:',required:true,validateOnBlur:true,validateOnCreate:false">
+		<p><input id="price" class="easyui-textbox" style="width: 400px;" data-options="label:'价格:',required:true,validateOnBlur:true,validateOnCreate:false">
+		<p><input id="money" class="easyui-textbox" style="width: 400px;" data-options="label:'优惠价格:',required:true,validateOnBlur:true,validateOnCreate:false">
+		<p>是否置顶：<input type="radio" value="Y" name="isTop">是 <input type="radio" value="N" name="isTop">否
+		<p>状态：<select id="state" class="easyui-combobox" style="width:200px;" data-options="panelHeight:100,editable:false">   
+					<option value="1">上架</option>
+					<option value="2">下架</option>
+					<option value="3">删除</option>
+				</select>
+	</div>
+	<div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;height:65px">
+		<p class="fr">
+		<span class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="width:100px;border-radius: 20px;" id="updateSubmit">修改</span>
+		<span class="easyui-linkbutton" data-options="iconCls:'icon-cancel'"  style="width:100px;border-radius: 20px;"  id="cancleUpdateBtn">取消</span>
+	</div>
+</div>
+<script type="text/javascript">
+	$("#cancleUpdateBtn").click(function (){
+		$("#updateMenu").window('destroy');
+	})
+	$("#updateSubmit").click(function(){
+		if(!$("#name").textbox("isValid") || !$("#price").textbox("isValid") || !$("#money").textbox("isValid")){
+			console.log("不行");
+			return;
+		}
+		var name = $("#name").textbox('getValue'); 
+		var price = $("#price").textbox('getValue');
+		var money = $("#money").textbox('getValue');
+		var is_top = $("input[name=isTop]:checked").val();
+		var state = $("#state").combobox('getValue');
+		var row = $("#dg").datagrid("getSelected");
+		var id = row.id;
+		var obj = {
+				name,
+				price,
+				money,
+				is_top,
+				state,
+				id
+		}
+		var p = {obj:JSON.stringify(obj)};
+		$.ajax({
+			type:"get",
+			url:"/MyShopping/UpdateMenuInfoById",
+			async:true,
+			data:p,
+			dataType:'json',
+			success:function(msg){
+				if(!msg.error){
+					$.messager.alert('好消息！',"修改成功···"); 
+					$("#updateMenu").window('close');
+					$("#dg").datagrid("reload");
+				}else{
+					$.messager.alert('警告',msg.msg); 
+				}
+			}
+		});
+	})
+</script>

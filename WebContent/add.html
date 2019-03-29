@@ -1,0 +1,63 @@
+<div class="easyui-layout" data-options="fit:true">	
+	<div>添加菜品</div>
+	<div data-options="region:'center'" style="padding:10px;">
+		<p><input id="addname" name="addname" autocomplete="off"  class="easyui-textbox" data-options="label:'名称:',required:true,width:300" >
+		<p><input id="addprice" name="addprice" autocomplete="off"  class="easyui-numberbox" data-options="label:'价格:',required:true,width:300,min:0, precision:1" >
+		<p><input id="addmoney" name="addmoney" autocomplete="off"  class="easyui-numberbox" data-options="label:'折扣:',required:true,width:300,min:0, precision:1" >
+		<p>是否置顶：<input type="radio" value="Y" name="addis_top" checked="checked">是 <input type="radio" value="N" name="addis_top">否
+		<p>状态：<select id="addstate" class="easyui-combobox" style="width:200px;" data-options="panelHeight:100,editable:false">
+					<option value="1">上架</option>
+					<option value="2">下架</option>
+					<option value="3">删除</option>
+				</select>
+	</div>
+	<div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;height:65px">
+		<p class="fr">
+		<span class="easyui-linkbutton" data-options="iconCls:'icon-ok'"      style="width:80px;border-radius: 20px;" onclick="submitAddMenu()">提交</span>
+		<span class="easyui-linkbutton" data-options="iconCls:'icon-cancel'"  style="width:80px;border-radius: 20px;" onclick="cancleaddMenuBtn()">取消</span>
+	</div>
+</div>
+<script type="text/javascript" charset="utf-8">
+	//提交增加菜品
+	function submitAddMenu(){
+		if(!$("#addname").textbox("isValid") || !$("#addprice").numberbox("isValid") || !$("#addmoney").numberbox("isValid")){
+			$.messager.alert('提示','不能有空','info');
+			return;
+		}
+		var name = $("#addname").textbox("getValue");
+		var price = $("#addprice").numberbox("getValue");
+		var money = $("#addmoney").numberbox("getValue");
+		debugger;
+		var isTop = $("input[name=addis_top]:checked").val();
+		var state = $("#addstate").combobox("getValue");
+		$.messager.confirm('确认','确认要提交吗？',function(r){
+			if(r){
+				var obj = {
+					name,price,money,isTop,state
+				};
+				var p = {obj:JSON.stringify(obj)};
+				$.ajax({
+					type:'get',
+					data:p,
+					url:'AddMenu',
+					async:true,
+					dataType:'json',
+					success:function(msg){
+						if(msg.error){
+							$.messager.alert('提示','该菜品名字重复');
+						}else{
+							$.messager.alert('提示','添加成功','info',function(){
+								cancleaddMenuBtn();
+								$("#dg").datagrid('reload');
+							})
+						}
+					}
+				});
+	 		}
+		})
+	}
+	//取消,关闭窗口
+	function cancleaddMenuBtn(){
+		$("#addmenuhtml").window('close');
+	}
+</script>

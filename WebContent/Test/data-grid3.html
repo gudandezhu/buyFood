@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript" src="../static/jquery-3.3.1.js"></script>
+		<script type="text/javascript" src="../static/jquery.easyui.min.js"></script>
+		<script type="text/javascript" src="../static/easyui-lang-zh_CN.js"></script>
+		<script type="text/javascript" src="data-grid3.js"></script>
+		<script type="text/javascript" src="threeConnection.js"></script>
+		<link rel="stylesheet" type="text/css" href="s../static/icon.css"/>
+		<link type="text/css" href="../static/easyui.css" rel="stylesheet" >
+		<style type="text/css">
+		</style>
+	</head>
+	<body>
+		
+		<div id="dd" style="height:100%;">
+			<div id="title" class="easyui-linkbutton" style='height:30px;width:700px;background-color: bisque;'>可拖动框</div> 
+			<div id="p" class="easyui-panel" title="My Panel"     
+				style="width:700px;height:650px;padding:10px;background:#fafafa;"   
+				data-options="iconCls:'icon-name',closable:true,    
+			        collapsible:true,minimizable:true,maximizable:true">   
+				<form>
+					<div>
+						<p>姓名：<input id="tb" type="text" style="width:300px"></p>
+						<!-- <p>性别：<input id="cc" name="dept" value="男"> </p> -->
+						<div><p>性别：</p>男：<input type="radio" class='easyui-radiobutton' name='gender' value='男' checked="checked">女：<input class='easyui-radiobutton' name='gender' value='女'></div>
+						<!-- <p>爱好：<input id="love" value=""></p> -->
+						<div>
+							<p>爱好：</p>
+							<div class="easyui-linkbutton"><input type="radio" class='easyui-checkbox' name='love' value='LOL' label='英雄连盟:'></div>
+							<div class="easyui-linkbutton"><input type="radio" class='easyui-checkbox' name='love' value='DNF'  label='地下城:'></div>
+							<div class="easyui-linkbutton"><input type="radio" class='easyui-checkbox' name='love' value='CF' label='枪战:'></div>
+							<div class="easyui-linkbutton"><input type="radio" class='easyui-checkbox' name='love' value='PUBG' label='绝地求生:'></div>
+						</div>
+						<p>年龄：<input id="ss" required="required" style="width:80px;" value="18"></p>
+						<p>出生日期：<input id="dt" type="text" name="birthday"></input></p>
+						<p>手机号码：<input type="text" id="nn"></input></p>
+						<a id="btn" href="#">保存</a>
+					</div>
+				</form>
+				<br>
+				省份：<input id="cc1" class="easyui-combobox"/>
+				城市：<input id="cc2" class="easyui-combobox"/>
+				区县：<input id="cc3" class="easyui-combobox" />  
+			</div>
+		</div> 
+		<div id="dd2" class="easyui-droppable" data-options="accept:'#p'" style="width:100px;height:100px;">放置区2</div> 
+		<div id="dd1" style="width:100px;height:100px;background-color: #ccc;" class='icon-no  easyui-droppable'>放置区</div> 
+
+		
+		
+		
+		
+	</body>
+</html>

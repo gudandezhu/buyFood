@@ -1,0 +1,33 @@
+		<meta charset="utf-8">
+		<p>取消原因：</p><input class="easyui-textbox" id="cancelResoninput" data-options="required:true,multiline:true" style="width:500px;height:200px">
+		
+		<p class="fr">
+			<span class="easyui-linkbutton" data-options="iconCls:'icon-ok'" style="width:100px;border-radius: 20px;" onclick="usersubmitcancelOrdermethod()">ok</span>
+			<span class="easyui-linkbutton" data-options="iconCls:'icon-cancel'"  style="width:100px;border-radius: 20px;"  onclick="usercancelOrdermethod()">no</span>
+		<script type="text/javascript">
+			//提交取消订单
+			function usersubmitcancelOrdermethod(){
+				//获取到选中订单信息  和取消原因
+				var row  = $("#userOrder").datagrid('getSelected');
+				var text = $("#cancelResoninput").textbox('getText');
+				if(!$("#cancelResoninput").textbox('isValid')){
+					return;
+				}
+				var p = {id:row.id,reason:text,totalMoney:row.totalMoney,userName:row.userName};
+				$.ajax({
+					type:'get',
+					data:p,
+					url:'CancelOrder',
+					async:true,
+					success:function(msg){
+						$.messager.alert('提示','取消订单成功,已退还用户 '+row.totalMoney+" 元",'info',function(){
+							usercancelOrdermethod();
+							$("#userOrder").datagrid('reload');
+						});    
+					}
+				})
+			}
+			function usercancelOrdermethod(){
+				$('#userOrderWin').window('close');
+			}
+		</script>

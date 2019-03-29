@@ -1,0 +1,165 @@
+h2{
+	font-size:25px;
+	font:bold;
+	text-align: center;
+}
+.box{
+	border: 1px solid silver;
+	border-collapse: collapse;
+	word-break: break-word;
+	height: 100%;
+}
+
+.box1 button{
+	border-radius: 20px;
+	cursor:pointer;
+}
+.box2 button{
+	border-radius: 10px;
+	cursor:pointer;
+	background-color: rebeccapurple;
+	color: floralwhite;
+}
+#confirm button{
+	border-radius: 20px;
+	font-size:18px;
+}
+#confirm button:hover{
+	color:red;
+}
+
+
+.box1{
+	height: 650px;
+	width: 120px;
+	border: 1px solid silver;
+	float: left;
+	margin-top:10px;	
+	margin-left:10px;
+	text-align:center;	
+}
+.box1 .buy{
+	margin-top:30px;
+	font-size: 20px;
+	cursor:pointer;
+	opacity:1;
+}
+.box1 .buy:hover{
+	color:red;
+}
+.box1 .shoppingCar:hover{
+	color:red;
+}
+.box1 .myOrder:hover{
+	color:red;
+}
+.box1 .shoppingCar{
+	margin-top: 30px;
+	margin-bottom: 30px;
+	font-size: 20px;
+	cursor:pointer;
+	opacity:1;
+}
+.box1 .myOrder{
+	font-size: 20px;
+	cursor:pointer;
+	opacity:1;
+}
+
+.box2{
+	height: 740px;
+	border: 1px solid silver;	
+	margin-left:140px;
+	margin-top:10px;	
+}
+.menus{
+	height: 92%;
+	width: 97%;
+	margin-left: 1.5%;
+	margin-top:0px;	
+	border: 1px solid silver;	
+	overflow: auto;
+}
+.message{
+	font-size: 25px;
+	border: 1px solid darkgoldenrod;
+	cursor:pointer;
+	float: right;
+	margin-top:15px;
+	margin-right: 10px;
+	background-color:silver;
+}
+.addCar{
+	font-size: 25px;
+	border: 1px solid red;
+	cursor:pointer;
+	float: right;
+	margin-top:15px;
+	margin-right: 15px;
+	background-color:silver;
+}
+.click{
+	display:none;
+}
+#createOrder:hover{
+	color:red;
+}
+.message:hover{
+	color:red;
+}
+.addCar:hover{
+	color:blue;
+}
+#choose{
+	font-size:22px;
+	color:red;
+	position:relative;
+	right:2%;
+	top:-10px;
+}
+.red{color:red};
+.fr{float: right;}
+.span-btn{border: 1px solid red;padding: 10px 30px;border-radius: 10px;font-size: 13px;cursor: pointer;}
+.span-btn:hover{background-color:skyblue;}
+.mr10{margin-right:10px;}
+.span-a{cursor:pointer;color:blue;}
+.f-s-13{font-size:13px;}
+.span-a:hover {text-decoration: underline;}
+
+.p_volume{margin: 45px -60px;}
+.p_price{text-align: left;margin: -5px 39px;float: left;}
+.titles{
+	margin:6px 515px;
+}
+.titles span{
+	margin-left:100px;
+}
+#searchMenu{
+	color:white;cursor:pointer;width: 90px;height: 40px;background-color: skyblue;
+	font-size:15px;
+	border-radius:10px;
+}
+#searchMenu:hover{
+	color:red;
+}
+p#name{font-size: 25px;margin-top: 10px;}	
+.menuDiv{border:1px solid silver;border-radius: 20px; margin: 10px 10px; font-size: 5px;}
+.menus table{border: 1px solid silver;border-collapse: collapse;word-break: break-word;width: 100%;margin-bottom: 10px;}
+.menus table tr{display: table-row;vertical-align: inherit;border-color: inherit;}
+.menus table td{font-size:1px;height:20px;width:0px;display: table-cell;vertical-align: inherit;    border: 1px solid silver;border-collapse: collapse;padding: 0px 20px;}
+.carDetail table{border: 1px solid silver;border-collapse: collapse;word-break: break-word;width: 100%;margin-bottom: 3px;}
+.carDetail table tr{display: table-row;vertical-align: inherit;border-color: inherit;}
+.carDetail table tr td{font-size:1px;height:20px;width:80px;display: table-cell;vertical-align: inherit;    border: 1px solid silver;border-collapse: collapse;padding: 0px 20px;}
+.order-list{width: 80%;margin: 10px;}
+.order-list table{border: 1px solid silver;border-collapse: collapse;word-break: break-word;width: 100%;margin-bottom: 20px;}
+.order-list table .head{background: #E7EAED;}
+.order-list table .head th{padding:10px 14px;}
+.order-list table tr{display: table-row;vertical-align: inherit;border-color: inherit;}
+.order-list table td{display: table-cell;vertical-align: inherit;border: 1px solid silver;border-collapse: collapse;padding: 8px 14px;text-align: center;}
+.orderDiv table td{width:10px;}
+
+.span-btn{border: 1px solid red;padding: 10px 30px;border-radius: 10px;font-size: 13px;cursor: pointer;}
+.span-btn:hover{background-color:skyblue;}
+.ml30{margin-left: 30px;}
+.mr30{margin-right:30px;}
+.floatl{float:left;}

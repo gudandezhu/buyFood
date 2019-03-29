@@ -1,0 +1,41 @@
+		<meta charset="utf-8">
+		<div id="cc" class="easyui-layout"  data-options="fit:true">
+			<div style="float:left"><p style="color: orangered;">现在扫码，立得优惠！</p>
+			<p style="color:#D84F4B;">快来加入我们吧!</p></div>
+			<img src="static/二维码.jpg" style="margin-top: 15px;margin-left: 30px;width:240px;height:240px">
+			<div data-options="region:'south',split:true" style="height:100px;">
+				<p class="fr" style="margin-left: 35%;margin-top: 5%;">
+					<span class="easyui-linkbutton c6" data-options="iconCls:'icon-ok'" style="width:100px;border-radius: 20px" onclick="createOrderSubmit()">银联支付</span>
+					<span class="easyui-linkbutton" data-options="iconCls:'icon-cancel'"  style="width:100px;border-radius: 20px;"  onclick="cancelcreateOrdermethod()">取消</span>
+			</div>   
+		</div>   
+		<script type="text/javascript">
+			function createOrderSubmit(){
+				var rows = $("#shopcar").datagrid('getSelections');
+				var p = {obj:JSON.stringify(rows)};	
+				 $.ajax({
+					type:'post',
+					data:p,
+					url:'CreateOrder',
+					async:true,
+					dataType:'json',
+					success:function(msg){
+						if(msg.error){
+							$.messager.alert('提示','该账户余额不足，还差 '+msg.msg.substr(1)+' 元','info',function(){
+								$("#shopcarrefresh").click();
+								cancelcreateOrdermethod();
+							});  
+						}else{
+							$.messager.alert('提示','成功，扣除金钱 '+msg.msg+" 元",'info',function(){
+								$("#shopcarrefresh").click();
+								cancelcreateOrdermethod();
+							});  
+						}
+						
+					}
+				})
+			}
+			function cancelcreateOrdermethod(){
+				$('#createOrderWin').window('destroy');
+			}
+		</script>

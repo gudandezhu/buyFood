@@ -1,0 +1,32 @@
+		.menu-div{width: 350px;height: 200px;border: 1px solid #ccc;border-radius: 10px;font-size: 14px;padding: 10px;float: left;margin-right: 10px;margin-bottom: 10px;}
+		.menu-div div{margin: 0px 0px;}
+		.menu-div .name{font-size: 20px;font-weight: bold;margin: 0px auto;line-height:120px;}
+		.fr{float: right;}
+		.menu-div .option{font-size: 13px;margin-top: 10px;color: blue;}
+		.menu-div .option span{margin-right: 10px;cursor: pointer;}
+		.menu-div .option span:hover {text-decoration: underline;color: red;}
+		.cred{color: red;}
+		.mr10{margin-right: 10px;}
+		#updateSubmit{
+			cursor:pointer;
+			background-color:skyblue;
+			border:1px solid red;
+		}
+		#cancleBtn{
+			cursor:pointer;
+			background-color:#bfa;
+			border:1px solid blue;
+		}
+		
+		.menu-div p{
+			margin:0 auto;
+			text-align: center;
+			line-height: 250px;
+		}
+		#backgroundimage3{
+			position: absolute;
+		    left: 88%; 
+		    top: 123px;
+		    width: 192px;
+		    overflow: hidden;
+		}

@@ -1,0 +1,67 @@
+<meta charset="utf-8">
+<div style="width: 70%;margin:0 auto;">
+	<div style="margin-top: 10%;">
+		<!-- <img src="static/个人信息模板.jpg" alt="" style="width: 50%;height: 80%;display: inline;float: left;"> -->
+		<img src="static/不再充钱.jpg" alt="" style="width: 50%;height: 80%;display: inline;float: left;">
+		<!-- 内容 -->
+		<div>
+			<h2>About Me<br><span class="f-s-13">I am a Pool force</span></h2>
+			
+			<div style="position:relative;left: 55px;width: 110%;">
+				<p>比你优秀的人比你还要努力，仔细想一想，你努力还有什么用？</p>
+				<p>一切的起因源于这两个字：穷逼！ </p>
+				<p>老马说，不够强，是因为你还没有充够足够的钱！！！</p>
+				<p style="margin-left: 53%;color: #FF6347;">看到下面这个按钮了吗，点击变强<b style="font-size: 30px;color:deeppink">↓↓↓</b></p>
+			</div>
+			
+			<p style="color:orangered;margin-left: 70%;">money: <a><span id="myInfoMoney"></span></a>	<a onclick="recharge()" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-pay'" style="margin-left: 5%;">充值</a>
+			</p>
+			
+			<div style="padding: 10px;margin-left: 55%">
+				<p><input id="myInfoName" class="easyui-textbox" style="width: 70%;" data-options="label:'Name'"></p>
+				<p><input id="myInfoAge" class="easyui-textbox" style="width: 70%;" data-options="label:'Age'"></p>
+				<p><input id="myInfoPhone" class="easyui-textbox" style="width: 70%;" data-options="label:'Phone'"></p>
+				<p><input id="myInfoAddress" class="easyui-textbox" style="width: 70%;" data-options="label:'Address'"></p>
+				<a onclick="saveUserInfo()" href="javascript:void(0)" class="easyui-linkbutton c8" data-options="iconCls:'icon-save'" style="margin-left: 35%;">save</a>
+			</div>
+			
+		</div>
+	</div>
+</div>
+<div id="rechargeWin"></div>
+<script type="text/javascript">
+	//创建命名空间
+	namespace.ns('easyShopping.js.myInfojs');
+	/*方法定义*/
+	easyShopping.js.myInfojs = {
+	    init:function(userId){
+			$.ajax({
+				type:'get',
+				url:'queryUserInfoServlet?id='+userId,
+				async:true,
+				dataType:'json',
+				success:function(msg){
+					fillMessage(msg);
+				}
+			})
+		},
+	}
+	function recharge(){
+		$('#rechargeWin').window({
+			title:'支付中···',
+			width:600,    
+			height:400,    
+			modal:true,
+			href:'recharge.html',
+			onDestroy:function(){$('#tabs').tabs('getTab',"个人信息").panel("refresh")}
+		})
+	}
+	function saveUserInfo(){}
+	function fillMessage(msg){
+		$("#myInfoMoney").html(msg.money);
+		$("#myInfoName").textbox("setValue",msg.name);
+		$("#myInfoAge").textbox("setValue",18);
+		$("#myInfoPhone").textbox("setValue",msg.phone);
+		$("#myInfoAddress").textbox("setValue",msg.addess);
+	}
+</script>

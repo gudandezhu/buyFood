@@ -1,0 +1,28 @@
+	    <table id="dg"></table>
+		<div id="tb" class="datagrid-toolbar">
+			<div>
+				<a href="javascript:void(0)" onclick="addDataMenu()"     class=" easyui-linkbutton"  data-options="iconCls:'icon-add',plain:true">增加</a>
+				<a href="javascript:void(0)" onclick="adminupdateData()"  class=" easyui-linkbutton"  data-options="iconCls:'icon-edit',plain:true">修改</a>
+				<a href="javascript:void(0)" id="deleteData"  class=" easyui-linkbutton"  data-options="iconCls:'icon-remove',plain:true">删除</a>
+				<a href="javascript:void(0)" id="refresh"  class=" easyui-linkbutton"  data-options="iconCls:'icon-mini-refresh',plain:true">刷新</a>
+				<a href="javascript:void(0)" id="print"  class=" easyui-linkbutton"  data-options="iconCls:'icon-print',plain:true">打印</a>
+				<a href="javascript:void(0)" id="help"  class=" easyui-linkbutton"  data-options="iconCls:'icon-help',plain:true">帮助</a>
+			</div>
+			<span>名称：</span>
+			<input id="textb" type="text" style="width:300px">
+			<span>是否置顶：</span>
+			<select  id="cc1"  data-options="editable:false" class="easyui-combobox" name="checkIsTop" style="width:80px">
+				<option value=""></option>
+				<option value="Y">是</option>
+				<option value="N">否</option>
+			</select>
+			<span>上下架：</span>
+			<select  id="cc2"  data-options="editable:false" class="easyui-combobox" name="checkIsState" style="width:80px">
+				<option value=""></option>
+				<option value="1">上架</option>
+				<option value="2">下架</option>
+				<option value="3">删除</option>
+			</select>
+			<a id="search"  href="javascript:void(0)" class="easyui-linkbutton" style="height:30px;width:120px;border-radius: 15px;" data-options="iconCls:'icon-search'">搜索</a>  
+		</div>
+		<div id="addmenuhtml" style="padding: 10px;"></div>

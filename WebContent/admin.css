@@ -1,0 +1,57 @@
+.border{
+			width: 6%;
+			height: 500px;
+			border:1px solid #ccc000;
+			float:left;
+		}
+		.v-error{
+			color:red;
+		}
+		.d1{
+			height: 50%;
+			margin: 0 auto;
+			cursor:pointer;
+		}
+		.d2{
+			height: 50%;
+			margin: 0 auto;
+			cursor:pointer;
+		}
+		.d1 p{
+			margin:0 auto;
+			text-align: center;
+			line-height: 250px;
+		}
+		.d2 p{
+		margin:0 auto;
+			text-align: center;
+			line-height: 250px;
+		}
+		#submitMenu{
+			cursor:pointer;
+			background-color:skyblue;
+			border:1px solid red;
+		}
+		#cancleBtn{
+			cursor:pointer;
+			background-color:#bfa;
+			border:1px solid blue;
+		}
+		/* #addMenu{
+			cursor:pointer;background-color:#CC3399;width:200px;height:120px;float:left;text-align:center;margin-top:30px;margin-left:10px;display:none;z-index:1000
+		} */
+		#addMenu{
+			display:none;
+			background-color:#ccc;
+			left: 90%;
+   			top: 188px;
+   			position: absolute;
+    		text-align: center;
+    		width: 118px;
+    		height: 43px;
+    		cursor:pointer;
+    		border-radius: 10px;
+		}
+		#addMenu:hover{
+			background-color:skyblue;
+		}

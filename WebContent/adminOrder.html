@@ -1,0 +1,36 @@
+		<meta charset="utf-8">
+		<table id="adminOrder"></table>
+		<div id="p" class="easyui-progressbar" style="width:400px;margin: -28% 35%;display: none;"></div>
+		<div id="admintb" class="datagrid-toolbar">
+			<div>
+				<a href="javascript:void(0)" onclick="admingetOrder()"  class=" easyui-linkbutton"  data-options="iconCls:'icon-print',plain:true">接单</a>
+				<a href="javascript:void(0)" onclick="adminProduceOrder()"  class=" easyui-linkbutton"  data-options="iconCls:'icon-print',plain:true">生产</a>
+				<a href="javascript:void(0)" onclick="admincancelOrder()"  class=" easyui-linkbutton"  data-options="iconCls:'icon-print',plain:true">取消订单</a>
+				<a href="javascript:void(0)" onclick="adminOrderrefresh()"  class=" easyui-linkbutton"  data-options="iconCls:'icon-mini-refresh',plain:true">刷新</a>
+				<a href="javascript:void(0)" onclick="adminprint()"  class=" easyui-linkbutton"  data-options="iconCls:'icon-print',plain:true">打印</a>
+				<a href="javascript:void(0)" id="adminOrderhelp"  class=" easyui-linkbutton"  data-options="iconCls:'icon-help',plain:true">帮助</a>
+			</div>
+			  
+			<div>
+				<span>起始时间:</span><input class="easyui-datetimebox" name="beginTime" data-options="required:true,showSeconds:false" value="" style="width:150px;height:25px;">
+				<span>结束时间:</span><input class="easyui-datetimebox" name="endTime" data-options="required:true,showSeconds:false" value="" style="width:150px;height:25px;">
+				<span>用户组:</span><input id="cc" name="dept">
+			    <!-- <span>名称：</span> -->
+			    <!-- <input id="orderText" class="easyui-textbox" type="text" style="width:300px"> -->
+			    <!-- <a onclick="adminOrdersearch()"  href="javascript:void(0)" class="easyui-linkbutton datagridlinkbutton" data-options="iconCls:'icon-search'">开始搜索</a> -->
+			</div>
+			<div style="margin: 10px 20px;">
+				<a onclick="datagridload(-1)" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'">全部</a>  
+				<a onclick="datagridload(1)" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'">待接单</a>  
+				<a onclick="datagridload(2)" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'">待生产</a>  
+				<a onclick="datagridload(3)" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'">待收货</a>  
+				<a onclick="datagridload(4)" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'">完成</a>  
+				<a onclick="datagridload(5)" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'">已取消</a>  
+			</div>
+			
+		</div>
+		<div id="adminOrderWin" style="padding: 10px;"></div>
+		<script type="text/javascript" src="adminOrder.js"></script>
+		
+		
+		

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>注册</title>
+			<script type="text/javascript" src="static/jquery-3.3.1.js"></script>
+			<script type="text/javascript" src="static/jquery.easyui.min.js"></script>
+			<script type="text/javascript" src="static/easyui-lang-zh_CN.js"></script>
+			<script type="text/javascript" src="register.js"></script>
+			<link type="text/css" rel="stylesheet" href="static/easyui.css"/>
+			<link type="text/css" rel="stylesheet" href="static/icon.css"  />
+			<link type="text/css" rel="stylesheet" href="static/demo.css"  />
+			<link type="text/css" rel="stylesheet" href="static/menusystem.css"  />
+</head>
+<body>
+	<h2>注册页面</h2>
+	<p>请如实填写您的信息，并作为本系统使用···</p>
+	<div style="margin:20px 0;"></div>
+	<div class="easyui-panel t-a-c" title="注 册" style="width:100%;max-width:400px;padding:30px 60px;">
+		<form id="ff" class="easyui-form" method="get" data-options="novalidate:true">
+			<div style="margin-bottom:20px">
+				<input class="easyui-textbox" name="name" style="width:100%" data-options="prompt:'请输入用户名',label:'用户名：',required:true">
+			</div>
+			<div style="margin-bottom:20px">
+				<input type="password" class="easyui-textbox" id="password" name="password" style="width:100%" data-options="prompt:'请输入密码',label:'密码：',required:true,validType:'minLength[6]'">
+			</div>
+			<div style="margin-bottom:20px">
+				<input type="password" class="easyui-textbox" name="repassword" style="width:100%" data-options="prompt:'请再次输入密码',label:'确认密码：',required:true" validType="equals['#password']">
+			</div>
+			
+			<div style="margin-bottom:20px">
+				<input class="easyui-textbox" name="addess" style="width:100%" data-options="prompt:'请输入地址(至少两位)',label:'地址：',required:true,validType:'minLength[2]'">
+			</div>
+			<div style="margin-bottom:20px">
+				<input class="easyui-textbox" name="phone" style="width:100%" data-options="prompt:'请输入手机号(11位)',label:'手机号：',required:true,validType:'length[11,11]',invalidMessage:'手机号码11位'">
+			</div>
+		</form>
+		<div style="text-align:center;padding:5px 0">
+			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px;border-radius: 20px;">提交</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="back()" style="width:80px;border-radius: 20px;">返回登录</a>
+		</div>
+	</div>
+</body>
+</html>
